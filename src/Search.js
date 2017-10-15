@@ -19,7 +19,7 @@ class Search extends Component {
     };
 
     search = (input) => {
-        if (input.length !== 0) {
+        input.length !== 0 ?
             BooksAPI.search(input, 20).then((books) => {
                 if (books.length > 0) {
                     books = books.filter((book) => (book.imageLinks));
@@ -29,9 +29,8 @@ class Search extends Component {
                     })
                 }
             })
-        } else {
-            this.setState({books: [], query: ''})
-        }
+        : this.setState({books: [], query: ''})
+
     };
 
     changeBookShelf = (books) => {
@@ -51,24 +50,25 @@ class Search extends Component {
     };
 
     addBook = (book, shelf) => {
-        this.props.onChange(book, shelf)
+        this.props.onChange(book, shelf);
     };
 
 
 
     render() {
+        let {query, books} = this.state;
         return (
             <div className="search-books">
                 <div className="search-books-bar">
                     <Link to='/' className="close-search">Close</Link>
                     <div className="search-books-input-wrapper">
-                        <input type="text" placeholder="Search by title or author" value={this.state.query}
+                        <input type="text" placeholder="Search by title or author" value={query}
                                onChange={this.handleChange}/>
                     </div>
                 </div>
                 <div className="search-books-results">
                     <ol className="books-grid">
-                        {this.state.query.length > 0 && this.state.books.map((book, index) => (
+                        {query.length > 0 && books.map((book, index) => (
                             <Book book={book} key={index} onUpdate={(shelf) => {
                                 this.addBook(book, shelf)
                             }}/>))}

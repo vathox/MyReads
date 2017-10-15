@@ -5,7 +5,8 @@ import BookShelf from './BookShelf'
 
 class BookView extends Component {
     render() {
-        const books = this.props.books
+        const books = this.props.books;
+        const onChange = this.props.onChange;
 
         return (
             <div>
@@ -15,11 +16,11 @@ class BookView extends Component {
                 <div className="list-books-content">
                     <div>
                         <BookShelf books={books.filter((book) => (book.shelf === "currentlyReading"))}
-                                   title="Currently Reading" onShelfChange={this.props.onChange}/>
+                                   title="Currently Reading" onShelfChange={onChange}/>
                         <BookShelf books={books.filter((book) => (book.shelf === "read"))} title="Read"
-                                   onShelfChange={this.props.onChange}/>
+                                   onShelfChange={onChange}/>
                         <BookShelf books={books.filter((book) => (book.shelf === "wantToRead"))} title="Want to Read"
-                                   onShelfChange={this.props.onChange}/>
+                                   onShelfChange={onChange}/>
                     </div>
                 </div>
                 <div className="open-search">
