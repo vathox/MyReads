@@ -32,6 +32,7 @@ class BooksApp extends Component {
             <div className="app">
                 <Route exact path="/" render={() => (
                     <BookView
+                        key={this.state.books.length}
                         books={this.state.books}
                         onChange={this.updateBook}/>
                 )}/>
