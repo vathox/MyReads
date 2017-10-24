@@ -13,7 +13,7 @@ class BooksApp extends Component {
 
     getBook = () => {
         BooksAPI.getAll().then((books) => {
-            this.setState({books: books})
+            this.setState({books})
         })
     };
 
@@ -28,16 +28,17 @@ class BooksApp extends Component {
     }
 
     render() {
+        let books = this.state.books;
         return (
             <div className="app">
                 <Route exact path="/" render={() => (
                     <BookView
-                        key={this.state.books.length}
-                        books={this.state.books}
+                        key={books.length}
+                        books={books}
                         onChange={this.updateBook}/>
                 )}/>
-                <Route path="/search" render={ () => (
-                    <Search currentBooks={this.state.books}
+                <Route path="/search" render={() => (
+                    <Search currentBooks={books}
                             onChange={this.updateBook}/>
                 )} />
             </div>

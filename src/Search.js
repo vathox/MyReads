@@ -12,9 +12,9 @@ class Search extends Component {
 
     handleChange = (event) => {
         let input = event.target.value;
-        this.setState(() => {
-            return {query: input}
-        });
+        this.setState(() => ({
+            query: input
+        }));
         this.search(input)
     };
 
@@ -24,9 +24,9 @@ class Search extends Component {
                 if (books.length > 0) {
                     books = books.filter((book) => (book.imageLinks));
                     books = this.changeBookShelf(books);
-                    this.setState(() => {
-                        return {books: books}
-                    })
+                    this.setState(() => ({
+                        books: books
+                    }))
                 }
             })
         : this.setState({books: [], query: ''})
@@ -49,8 +49,11 @@ class Search extends Component {
         return books
     };
 
-    addBook = (book, shelf) => {
+    addBook = (book, shelf, books) => {
         this.props.onChange(book, shelf);
+        this.setState(() => ({
+            books: this.changeBookShelf(books)
+        }));
     };
 
 
@@ -70,7 +73,7 @@ class Search extends Component {
                     <ol className="books-grid">
                         {query.length > 0 && books.map((book, index) => (
                             <Book book={book} key={index} onUpdate={(shelf) => {
-                                this.addBook(book, shelf)
+                                this.addBook(book, shelf, books)
                             }}/>))}
                     </ol>
                 </div>
